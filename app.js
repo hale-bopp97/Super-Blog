@@ -48,7 +48,7 @@ app.post('/compose', function(req, res) {
   const post = {
   
     title: req.body.postTitle,
-    text: req.body.postText
+    text: _.truncate(req.body.postText, {length: 100})
   
   }
 
@@ -71,7 +71,7 @@ app.get('/posts/:postName', function(req, res) {
       console.log('Match Found!')
     
       res.render('post', {
-
+//100 chars... truncate ejs
         title: post.title,
         content: post.text
 
