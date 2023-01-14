@@ -58,15 +58,29 @@ app.post('/compose', function(req, res) {
 
 })
 
-app.get('/:postName', function(req, res) {
-  console.log(_.toLower(req.params.postName) + ' outter loop')
+app.get('/posts/:postName', function(req, res) {
+  // console.log(_.toLower(req.params.postName) + ' outter loop')
+  const requestTitle = _.toLower(req.params.postName)
+
   posts.forEach(function(post) {
     // console.log(post.title)
-    if (_.lowerCase(post.title) === _.lowerCase(req.params.postName)) {
+    const storedTitle = _.toLower(post.title)
+
+    if (storedTitle === requestTitle) {
+    
       console.log('Match Found!')
+    
+      res.render('post', {
+
+        title: post.title,
+        content: post.text
+
+      })
+
     }
       // console.log('match not found...')
   })
+
 })
 
 app.listen(process.env.PORT || 3000, function() {
